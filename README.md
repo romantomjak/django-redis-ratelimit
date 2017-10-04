@@ -1,8 +1,10 @@
 # django-redis-ratelimit
 
----
+[![Build Status](https://travis-ci.org/r00m/django-redis-ratelimit.svg?branch=master)](https://travis-ci.org/r00m/django-redis-ratelimit)
 
 A sliding window rate limiting based on Redis
+
+---
 
 ## Installation
 
