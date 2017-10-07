@@ -16,3 +16,4 @@ class RateLimitTests(TestCase):
         req = factory.get('/')
         with self.assertRaises(RateLimited):
             view(req)
+
