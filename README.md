@@ -3,14 +3,14 @@
 [![Build Status](https://travis-ci.org/r00m/django-redis-ratelimit.svg?branch=master)](https://travis-ci.org/r00m/django-redis-ratelimit)
 
 A fixed window rate limiting based on Redis
- 
+
 ---
 
 ## Installation
 
 To install django-redis-ratelimit, simply:
 
-```
+```console
 $ pip install django-redis-ratelimit
 ```
 
@@ -21,7 +21,7 @@ $ pip install django-redis-ratelimit
 
 First, add the middleware to your `settings.py`:
 
-```
+```django
 MIDDLEWARE = [
     # ...
     
@@ -33,10 +33,9 @@ this will make sure that end user sees the HTTP 429 response.
 
 Next, apply the `ratelimit` decorator to the view:
 
-```
+```django
 from django.http import HttpResponse
 from redis_ratelimit import ratelimit
-
 
 @ratelimit(rate='5/m')
 def index(request):
