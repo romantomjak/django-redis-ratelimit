@@ -2,6 +2,7 @@ from functools import wraps
 
 import redis
 from django.conf import settings
+from django.http import HttpRequest
 
 from redis_ratelimit.exceptions import RateLimited
 from redis_ratelimit.utils import parse_rate, build_redis_key
@@ -34,7 +35,11 @@ def ratelimit(rate=None):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            request = args[0]
+            # CBV support
+            if isinstance(args[0], HttpRequest):
+                request = args[0]
+            else:
+                request = args[1]
             if is_rate_limited(request, rate=rate):
                 raise RateLimited("Too Many Requests")
             return f(*args, **kwargs)

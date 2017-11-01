@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
+from django.views import View
 
 from redis_ratelimit import ratelimit
 from redis_ratelimit.exceptions import RateLimited
@@ -51,3 +52,21 @@ class RateLimitTests(TestCase):
             with self.assertRaises(RateLimited):
                 req = factory.get('/')
                 view(req)
+
+    def test_cbv_decorator(self):
+        class Cbv(View):
+            @ratelimit(rate='5/s')
+            def get(self, request):
+                return True
+
+        class DynamicUrlPattern:
+            urlpatterns = [url(r'', Cbv.as_view())]
+
+        with override_settings(ROOT_URLCONF=DynamicUrlPattern):
+            for _ in range(5):
+                req = factory.get('/')
+                Cbv.as_view()(req)
+
+            with self.assertRaises(RateLimited):
+                req = factory.get('/')
+                Cbv.as_view()(req)
