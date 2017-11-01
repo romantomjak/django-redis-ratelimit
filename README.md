@@ -6,6 +6,12 @@ A fixed window rate limiting based on Redis
 
 ---
 
+## Requirements
+
+- Python >= 3.6
+- Django >= 1.11
+- Redis
+
 ## Installation
 
 To install django-redis-ratelimit, simply:
@@ -53,3 +59,7 @@ For this example we will assume that each key takes up roughly 250 bytes and eac
 ## Notes
 
 - [Redis Rate Limiting Pattern #2](https://redis.io/commands/INCR#pattern-rate-limiter-2)
+
+## License
+
+MIT

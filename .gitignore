@@ -3,3 +3,6 @@
 drr/
 *.egg-info
 __pycache__
+build/
+dist/
+README
